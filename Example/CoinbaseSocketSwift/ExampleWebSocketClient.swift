@@ -1,6 +1,6 @@
 //
 //  ExampleWebSocketClient.swift
-//  GDAXSocketSwift_Example
+//  CoinbaseSocketSwift_Example
 //
 //  Created by Hani Shabsigh on 11/04/2018.
 //  Copyright © 2018 CocoaPods. All rights reserved.
@@ -9,7 +9,7 @@
 import CoinbaseSocketSwift
 import Starscream
 
-public class ExampleWebSocketClient: CBSSWebSocketClient {
+public class ExampleWebSocketClient: CoinbaseWebSocketClient {
     
     fileprivate let socket: WebSocket
     
@@ -21,7 +21,7 @@ public class ExampleWebSocketClient: CBSSWebSocketClient {
         socket.delegate = self
     }
     
-    public weak var delegate: CBSSWebSocketClientDelegate?
+    public weak var delegate: CoinbaseWebSocketClientDelegate?
     
     public func connect() {
         socket.connect()
