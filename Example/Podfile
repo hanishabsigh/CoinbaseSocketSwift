@@ -2,10 +2,5 @@ use_frameworks!
 
 target 'CoinbaseSocketSwift_Example' do
   pod 'CoinbaseSocketSwift', :path => '../'
-
-  target 'CoinbaseSocketSwift_Tests' do
-    inherit! :search_paths
-
-    
-  end
+  pod 'Starscream', '~> 3.0.2'
 end

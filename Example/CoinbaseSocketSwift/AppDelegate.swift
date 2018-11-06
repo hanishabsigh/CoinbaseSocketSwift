@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  CoinbaseSocketSwift
 //
-//  Created by Hani Shabsigh on 11/05/2018.
+//  Created by Hani Shabsigh on 11/04/2018.
 //  Copyright (c) 2018 Hani Shabsigh. All rights reserved.
 //
 
@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
     }

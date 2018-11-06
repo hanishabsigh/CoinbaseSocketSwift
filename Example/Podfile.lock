@@ -1,0 +1,27 @@
+PODS:
+  - CoinbaseSocketSwift (1.0.0):
+    - CryptoSwift
+  - CryptoSwift (0.13.0)
+  - Starscream (3.0.6)
+
+DEPENDENCIES:
+  - CoinbaseSocketSwift (from `../`)
+  - Starscream (~> 3.0.2)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - CryptoSwift
+    - Starscream
+
+EXTERNAL SOURCES:
+  CoinbaseSocketSwift:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CoinbaseSocketSwift: 78606646fbfb120998143dd4c3f9d16a63a476ad
+  CryptoSwift: 16e78bebf567bad1c87b2d58f6547f25b74c31aa
+  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
+
+PODFILE CHECKSUM: 41c601983c209eaf779a709f2e0d36a1b600e205
+
+COCOAPODS: 1.6.0.beta.2
