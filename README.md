@@ -47,28 +47,28 @@ import CoinbaseSocketSwift
 
 ##### Initialize
 
-Create an instance of `CBSSSocketClient` using the available initializer. Note that it is probably best to use a property, so it doesn't get deallocated right after being setup.
+Create an instance of `CoinbaseSocketClient` using the available initializer. Note that it is probably best to use a property, so it doesn't get deallocated right after being setup.
 
 The `apiKey`, `secret64`, and `passphrase` parameters are optional if you want to receive authenticated messages. Read the [official Coinbase Pro documentation](https://docs.pro.coinbase.com) for more details on authenticated WebSocket messages.
 
 ```swift
-socketClient = CBSSSocketClient(apiKey: "apiKey", secret64: "secret64", passphrase: "passphrase")
+socketClient = CoinbaseSocketClient(apiKey: "apiKey", secret64: "secret64", passphrase: "passphrase")
 ```
 
 ##### Setup WebSocket
 
-CoinbaseSocketSwift is made to be used with any WebSocket library. As such, a class that conforms to the protocol `CBSSWebSocketClient` must be passed in to `CBSSSocketClient`. `CBSSSocketClient` keeps a strong reference to this socket class and handles connecting, disconnecting, receiving messages, and connection status. Check out the example project to see how to do this with [Starscream](https://github.com/daltoniam/Starscream).
+CoinbaseSocketSwift is made to be used with any WebSocket library. As such, a class that conforms to the protocol `CoinbaseWebSocketClient` must be passed in to `CoinbaseSocketClient`. `CoinbaseSocketClient` keeps a strong reference to this socket class and handles connecting, disconnecting, receiving messages, and connection status. Check out the example project to see how to do this with [Starscream](https://github.com/daltoniam/Starscream).
 
 ```swift
-socketClient.webSocket = ExampleWebSocketClient(url: URL(string: CBSSSocketClient.baseProAPIURLString)!)
+socketClient.webSocket = ExampleWebSocketClient(url: URL(string: CoinbaseSocketClient.baseProAPIURLString)!)
 ```
 
 ##### Setup Logger (optional)
 
-If you want to see logs from CoinbaseSocketSwift you can optionally pass a class that conforms to the protocol `CBSSSocketClientLogger`. A `CBSSSocketClientDefaultLogger` is provided with an example of basic logging.
+If you want to see logs from CoinbaseSocketSwift you can optionally pass a class that conforms to the protocol `CoinbaseSocketClientLogger`. A `CoinbaseSocketClientDefaultLogger` is provided with an example of basic logging.
 
 ```swift
-socketClient?.logger = CBSSSocketClientDefaultLogger()
+socketClient?.logger = CoinbaseSocketClientDefaultLogger()
 ```
 
 ##### Setup Delegate
@@ -82,20 +82,20 @@ socketClient?.delegate = self
 Then you can create an extension and implement the delegate methods. The delegate methods are optional (by way of empty default implementations). 
 
 ```swift
-extension ViewController: CBSSSocketClientDelegate {
-	func cbssSocketDidConnect(socket: CBSSSocketClient) {
+extension ViewController: CoinbaseSocketClientDelegate {
+	func coinbaseSocketDidConnect(socket: CoinbaseSocketClient) {
 		socket.subscribe(channels:[.ticker], productIds:[.BTCUSD])
 	}
 
-	func cbssSocketDidDisconnect(socket: CBSSSocketClient, error: Error?) {
+	func coinbaseSocketDidDisconnect(socket: CoinbaseSocketClient, error: Error?) {
 
 	}
 
-	func cbssSocketClientOnErrorMessage(socket: CBSSSocketClient, error: CBSSErrorMessage) {
+	func coinbaseSocketClientOnErrorMessage(socket: CoinbaseSocketClient, error: ErrorMessage) {
 		print(error.message)
 	}
 
-	func cbssSocketClientOnTicker(socket: CBSSSocketClient, ticker: CBSSTicker) {
+	func coinbaseSocketClientOnTicker(socket: CoinbaseSocketClient, ticker: TickerMessage) {
 		let formattedPrice = priceFormatter.string(from: ticker.price as NSNumber) ?? "0.0000"
 		self.tickerLabel.text = ticker.type.rawValue
 		self.priceLabel.text = "Price = " + formattedPrice

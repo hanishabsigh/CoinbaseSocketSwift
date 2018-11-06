@@ -11,17 +11,10 @@ import CoinbaseSocketSwift
 
 class ViewController: UIViewController {
     
-    var socketClient: CBSSSocketClient = CBSSSocketClient()
+    var socketClient: CoinbaseSocketClient = CoinbaseSocketClient()
     let priceFormatter: NumberFormatter = NumberFormatter()
     let timeFormatter: DateFormatter = DateFormatter()
-    let productIds: [CBSSProductId] = [.BTCUSD, .BTCEUR, .BTCGBP, .BTCUSDC,
-                                       .ETHUSD, .ETHBTC, .ETHEUR, .ETHGBP, .ETHUSDC,
-                                       .LTCUSD, .LTCBTC, .LTCEUR, .LTCGBP,
-                                       .BCHUSD, .BCHBTC, .BCHEUR, .BCHGBP,
-                                       .ETCUSD, .ETCBTC, .ETCEUR, .ETCGBP,
-                                       .ZRXUSD, .ZRXBTC, .ZRXEUR,
-                                       .BATUSDC]
-    var selectedProductId: CBSSProductId = .BTCUSD
+    var selectedProductId: ProductId = .BTCUSD
     
     @IBOutlet weak var tickerLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
@@ -33,8 +26,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         socketClient.delegate = self
-        socketClient.webSocket = ExampleWebSocketClient(url: URL(string: CBSSSocketClient.baseProAPIURLString)!)
-        socketClient.logger = CBSSSocketClientDefaultLogger()
+        socketClient.webSocket = ExampleWebSocketClient(url: URL(string: CoinbaseSocketClient.baseProAPIURLString)!)
+        socketClient.logger = CoinbaseSocketClientDefaultLogger()
         
         priceFormatter.numberStyle = .decimal
         priceFormatter.maximumFractionDigits = 2
@@ -60,7 +53,7 @@ class ViewController: UIViewController {
         socketClient.unsubscribe(channels:[.ticker], productIds:[selectedProductId])
     }
     
-    func updateUI(ticker: CBSSTicker?) {
+    func updateUI(ticker: TickerMessage?) {
         if let ticker = ticker {
             productIdLabel.text = ticker.productId.rawValue
             tickerLabel.text =  ticker.type.rawValue
@@ -80,32 +73,32 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: CBSSSocketClientDelegate {
-    func cbssSocketDidConnect(socket: CBSSSocketClient) {
+extension ViewController: CoinbaseSocketClientDelegate {
+    func coinbaseSocketDidConnect(socket: CoinbaseSocketClient) {
         subscribe()
     }
     
-    func cbssSocketDidDisconnect(socket: CBSSSocketClient, error: Error?) {
+    func coinbaseSocketDidDisconnect(socket: CoinbaseSocketClient, error: Error?) {
         
     }
     
-    func cbssSocketClientOnErrorMessage(socket: CBSSSocketClient, error: CBSSErrorMessage) {
+    func coinbaseSocketClientOnErrorMessage(socket: CoinbaseSocketClient, error: ErrorMessage) {
         print(error.message)
     }
     
-    func cbssSocketClientOnTicker(socket: CBSSSocketClient, ticker: CBSSTicker) {
+    func coinbaseSocketClientOnTicker(socket: CoinbaseSocketClient, ticker: TickerMessage) {
         updateUI(ticker: ticker)
     }
 }
 
 extension ViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return productIds[row].rawValue
+        return ProductId.allCases[row].rawValue
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         unsubscribe()
-        selectedProductId = productIds[row]
+        selectedProductId = ProductId.allCases[row]
         updateUI(ticker: nil)
         subscribe()
     }
@@ -117,6 +110,6 @@ extension ViewController: UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return productIds.count
+        return ProductId.allCases.count
     }
 }
