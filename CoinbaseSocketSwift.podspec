@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://github.com/hanishabsigh/CoinbaseSocketSwift'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Hani Shabsigh' => 'hani@neuecoin.com' }
-  s.source           = { :git => 'https://github.com/Hani Shabsigh/CoinbaseSocketSwift.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/hanishabsigh/CoinbaseSocketSwift.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/hanishabsigh'
   s.ios.deployment_target = '8.1'
   s.osx.deployment_target = '10.13'
