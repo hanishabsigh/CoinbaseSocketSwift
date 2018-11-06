@@ -13,7 +13,7 @@
 
 Please read over the [official Coinbase Pro documentation](https://docs.pro.coinbase.com) *before* using this library.
 
-This library was inspired by [GDASXSwift](https://github.com/anthonypuppo/GDAXSwift) and is a continuation of [GDAXSocketSwift](https://github.com/hanishabsigh/GDAXSocketSwift).
+This library was inspired by [GDAXSwift](https://github.com/anthonypuppo/GDAXSwift) and is a continuation of [GDAXSocketSwift](https://github.com/hanishabsigh/GDAXSocketSwift).
 
 ## Requirements
 
