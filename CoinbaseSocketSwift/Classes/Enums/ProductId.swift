@@ -34,4 +34,5 @@ public enum ProductId: String, CaseIterable {
     case BTCUSDC = "BTC-USDC"
     case ETHUSDC = "ETH-USDC"
     case BATUSDC = "BAT-USDC"
+    case ZECUSDC = "ZEC-USDC"
 }
