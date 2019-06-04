@@ -1,4 +1,4 @@
-framework module CoinbaseSocketSwift {
+module CoinbaseSocketSwift {
   umbrella header "CoinbaseSocketSwift-umbrella.h"
 
   export *

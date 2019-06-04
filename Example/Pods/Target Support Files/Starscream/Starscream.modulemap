@@ -1,4 +1,4 @@
-framework module Starscream {
+module Starscream {
   umbrella header "Starscream-umbrella.h"
 
   export *
