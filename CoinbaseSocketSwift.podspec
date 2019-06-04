@@ -13,5 +13,5 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target = '4.0'
   s.source_files = 'CoinbaseSocketSwift/Classes/**/*'
   s.dependency 'CryptoSwift'
-  s.swift_version = '4.2'
+  s.swift_version = '5.0'
 end
