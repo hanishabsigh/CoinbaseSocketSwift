@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     var socketClient: CoinbaseSocketClient = CoinbaseSocketClient()
     let priceFormatter: NumberFormatter = NumberFormatter()
     let timeFormatter: DateFormatter = DateFormatter()
-    var selectedProductId: ProductId = .BTCUSD
+    var selectedProductId: String = ProductIds.BTCUSD.rawValue
     
     @IBOutlet weak var tickerLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
@@ -55,7 +55,7 @@ class ViewController: UIViewController {
     
     func updateUI(ticker: TickerMessage?) {
         if let ticker = ticker {
-            productIdLabel.text = ticker.productId.rawValue
+            productIdLabel.text = ticker.productId
             tickerLabel.text =  ticker.type.rawValue
             
             let formattedPrice = priceFormatter.string(from: ticker.price as NSNumber) ?? "0.0000"
@@ -65,8 +65,8 @@ class ViewController: UIViewController {
                 timeLabel.text = timeFormatter.string(from: time)
             }
         } else {
-            productIdLabel.text = selectedProductId.rawValue
-            tickerLabel.text = "waiting for data..."
+            productIdLabel.text = selectedProductId
+            tickerLabel.text = "Waiting for data..."
             priceLabel.text = "..."
             timeLabel.text = nil
         }
@@ -83,7 +83,7 @@ extension ViewController: CoinbaseSocketClientDelegate {
     }
     
     func coinbaseSocketClientOnErrorMessage(socket: CoinbaseSocketClient, error: ErrorMessage) {
-        print(error.message)
+        tickerLabel.text = "Error Message: " + error.message
     }
     
     func coinbaseSocketClientOnTicker(socket: CoinbaseSocketClient, ticker: TickerMessage) {
@@ -93,12 +93,12 @@ extension ViewController: CoinbaseSocketClientDelegate {
 
 extension ViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return ProductId.allCases[row].rawValue
+        return DefaultProductIds.allCases()[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         unsubscribe()
-        selectedProductId = ProductId.allCases[row]
+        selectedProductId = DefaultProductIds.allCases()[row]
         updateUI(ticker: nil)
         subscribe()
     }
@@ -110,6 +110,6 @@ extension ViewController: UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return ProductId.allCases.count
+        return DefaultProductIds.allCases().count
     }
 }

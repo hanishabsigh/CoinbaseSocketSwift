@@ -10,7 +10,7 @@ import Foundation
 
 internal extension Formatter {
     
-    internal static let iso8601: DateFormatter = {
+    static let iso8601: DateFormatter = {
         let formatter = DateFormatter()
         
         formatter.calendar = Calendar(identifier: .iso8601)

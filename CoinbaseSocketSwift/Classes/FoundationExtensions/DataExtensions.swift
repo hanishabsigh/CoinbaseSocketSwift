@@ -10,14 +10,14 @@ import Foundation
 
 internal extension Data {
     
-    internal var json: [String: Any]? {
+    var json: [String: Any]? {
         do {
             return try JSONSerialization.jsonObject(with: self, options: []) as? [String: Any]
         } catch _ { }
         return nil
     }
     
-    internal var jsonArray: [Any]? {
+    var jsonArray: [Any]? {
         do {
             return try JSONSerialization.jsonObject(with: self, options: []) as? [Any]
         } catch _ { }

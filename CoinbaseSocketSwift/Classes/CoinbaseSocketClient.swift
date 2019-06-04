@@ -58,12 +58,12 @@ import Foundation
         webSocket?.disconnect()
     }
     
-    public func subscribe(channels: [Channel], productIds: [ProductId]) {
+    public func subscribe(channels: [Channel], productIds: [String]) {
         let subscribe = SubscribeMessage(channels: channels, productIds: productIds)
         authenticateAndWrite(json: subscribe.asJSON())
     }
     
-    public func unsubscribe(channels: [Channel], productIds: [ProductId]) {
+    public func unsubscribe(channels: [Channel], productIds: [String]) {
         let unsubscribe = UnsubscribeMessage(channels: channels, productIds: productIds)
         authenticateAndWrite(json: unsubscribe.asJSON())
     }

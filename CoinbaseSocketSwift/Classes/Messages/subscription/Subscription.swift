@@ -11,7 +11,7 @@ import Foundation
 open class Subscription {
     
     public let channel:Channel
-    public let productIds:[ProductId]
+    public let productIds:[String]
     
     public init(json: [String: Any]) throws {
         
@@ -19,20 +19,11 @@ open class Subscription {
             throw CoinbaseSocketSwiftError.responseParsingFailure("subscription_name")
         }
         
-        guard let productIdStrings = json["product_ids"] as? [String] else {
+        guard let productIds = json["product_ids"] as? [String] else {
             throw CoinbaseSocketSwiftError.responseParsingFailure("subscription_product_ids")
         }
         
-        var productIdObjects = [ProductId]()
-        for productIdString in productIdStrings {
-            guard let productId = ProductId(rawValue: productIdString) else {
-                throw CoinbaseSocketSwiftError.responseParsingFailure("subscription_product_id")
-            }
-            
-            productIdObjects.append(productId)
-        }
-        
         self.channel = channel
-        self.productIds = productIdObjects
+        self.productIds = productIds
     }
 }

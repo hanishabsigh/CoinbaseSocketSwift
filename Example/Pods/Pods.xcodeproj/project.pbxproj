@@ -31,7 +31,7 @@
 		39A69C0C6342402A91FA0C9C4C9E25A5 /* Poly1305.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B85DFC0A6DE8660E8A87B6D6F858D3 /* Poly1305.swift */; };
 		3C363E124451A79A2F3C18DC817947DB /* UInt16+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71BA98C92BC2FD56A43487BF13FC652 /* UInt16+Extension.swift */; };
 		3D4EA5DF9A397000D2925CB888278E98 /* BlockModeOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD4999FA05A23E033E75A61E3CBB7A1 /* BlockModeOptions.swift */; };
-		419136C1D71F66A7238C6154ECFC57C6 /* ProductId.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46E47A4B928362AC917F4C39FD61683 /* ProductId.swift */; };
+		419136C1D71F66A7238C6154ECFC57C6 /* ProductIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46E47A4B928362AC917F4C39FD61683 /* ProductIds.swift */; };
 		4217F2FD9F5119966449B45474439704 /* Rabbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CC7B63DA7C574A47D3C28024982838 /* Rabbit.swift */; };
 		426F4410109D631741B4B6D618205639 /* SHA3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EFE733B368D073C6BF9731B92E00C1 /* SHA3.swift */; };
 		43472590D5204D6062C2A8DE0FC2E432 /* CFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D92861998054ABB8009DF3388B20225 /* CFB.swift */; };
@@ -302,7 +302,7 @@
 		DEE9D341449A9F482FBEB7A162753971 /* CompactMap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CompactMap.swift; path = Sources/CryptoSwift/CompactMap.swift; sourceTree = "<group>"; };
 		E256EAFA8902569443FA1165F212A1B4 /* StreamDecryptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StreamDecryptor.swift; path = Sources/CryptoSwift/StreamDecryptor.swift; sourceTree = "<group>"; };
 		E2BBBD979AA3F988B532262ECB721353 /* Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Sources/CryptoSwift/Operators.swift; sourceTree = "<group>"; };
-		E46E47A4B928362AC917F4C39FD61683 /* ProductId.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProductId.swift; sourceTree = "<group>"; };
+		E46E47A4B928362AC917F4C39FD61683 /* ProductIds.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProductIds.swift; sourceTree = "<group>"; };
 		E69939A7DC2FE19336CA71F989C8F585 /* ActivateMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ActivateMessage.swift; sourceTree = "<group>"; };
 		E7966CC098DB0AF5BE18AB56054D2C0F /* Pods_CoinbaseSocketSwift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoinbaseSocketSwift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9048F5563C95831998340FED2615EBF /* CoinbaseMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoinbaseMessage.swift; sourceTree = "<group>"; };
@@ -501,7 +501,7 @@
 				CCF79BE7CB5921FADE312B6D51252552 /* Channel.swift */,
 				062A44503A72A2B4FC7EC8E1E77E4FC7 /* CoinbaseSocketSwiftError.swift */,
 				68AFB81443DC01C208CECA3B89A3576F /* OrderType.swift */,
-				E46E47A4B928362AC917F4C39FD61683 /* ProductId.swift */,
+				E46E47A4B928362AC917F4C39FD61683 /* ProductIds.swift */,
 				8F758FCA0EDA34DE29050C21D379288A /* OrderSide.swift */,
 				D80F3854AA1819DC83B06E234727DB19 /* MessageType.swift */,
 			);
@@ -848,6 +848,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
@@ -912,7 +913,7 @@
 				C9FEF6FC1FB5C40EEEE62E05DD0A7A55 /* CoinbaseMessage.swift in Sources */,
 				D0CF0F2FAB7C2F843229F4B38E6F26AF /* OpenMessage.swift in Sources */,
 				E73F393436A47160C4E9CBA3C37F9111 /* OrderType.swift in Sources */,
-				419136C1D71F66A7238C6154ECFC57C6 /* ProductId.swift in Sources */,
+				419136C1D71F66A7238C6154ECFC57C6 /* ProductIds.swift in Sources */,
 				FF1D36D64E13AD1D95EA60E379170C0A /* ProductMessage.swift in Sources */,
 				4705CF57112D153CD88371AA65B1F7A1 /* ProductSequenceTimeMessage.swift in Sources */,
 				0FCD37D8D6DB6D80E9A2A7E43735834D /* ReceivedMessage.swift in Sources */,
