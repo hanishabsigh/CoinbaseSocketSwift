@@ -3,5 +3,5 @@ platform :ios, '9.3'
 
 target 'CoinbaseSocketSwift_Example' do
   pod 'CoinbaseSocketSwift', :path => '../'
-  pod 'Starscream', '~> 3.0.2'
+  pod 'Starscream', '~> 3.1.0'
 end
