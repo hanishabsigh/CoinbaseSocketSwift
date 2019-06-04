@@ -1,4 +1,4 @@
-use_frameworks!
+platform :ios, '9.3'
 
 target 'CoinbaseSocketSwift_Example' do
   pod 'CoinbaseSocketSwift', :path => '../'
