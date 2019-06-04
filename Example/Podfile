@@ -1,3 +1,4 @@
+inhibit_all_warnings!
 platform :ios, '9.3'
 
 target 'CoinbaseSocketSwift_Example' do
