@@ -1,6 +1,6 @@
 {
   "name": "CoinbaseSocketSwift",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "summary": "Unofficial Swift implementation of Coinbase WebSocket API.",
   "homepage": "https://github.com/hanishabsigh/CoinbaseSocketSwift",
   "license": {
@@ -12,7 +12,7 @@
   },
   "source": {
     "git": "https://github.com/hanishabsigh/CoinbaseSocketSwift.git",
-    "tag": "1.0.2"
+    "tag": "1.0.3"
   },
   "social_media_url": "https://twitter.com/hanishabsigh",
   "platforms": {

@@ -13,6 +13,7 @@ public protocol CoinbaseSocketClientLogger: class {
     func logCoinbaseSocketDidDisconnect(socket: CoinbaseSocketClient, error: Error?)
     func logCoinbaseSocketDidReceiveMessage(socket: CoinbaseSocketClient, text: String)
     func logCoinbaseSocketResponseParsingFailure(socket: CoinbaseSocketClient, message: String)
+    func logCoinbaseSocketWriteFailure(socket: CoinbaseSocketClient, error: Error?)
     func logCoinbaseSocketAuthenticationBuilderError(socket: CoinbaseSocketClient, message: String)
     func logCoinbaseSocketGeneralError(socket: CoinbaseSocketClient, message: String)
 }
@@ -24,17 +25,17 @@ public class CoinbaseSocketClientDefaultLogger: CoinbaseSocketClientLogger {
     }
     
     public func logCoinbaseSocketDidConnect(socket: CoinbaseSocketClient) {
-        print("--")
-        print("-- CoinbaseSocketClient CONNECT \(socket.baseURLString ?? "")")
+        print("-- CoinbaseSocketClient CONNECT \(socket.url?.absoluteString ?? "")")
+        print("\n")
     }
     
     public func logCoinbaseSocketDidDisconnect(socket: CoinbaseSocketClient, error: Error?) {
-        print("--")
-        print("-- CoinbaseSocketClient DISCONNECT \(socket.baseURLString ?? "")")
+        print("-- CoinbaseSocketClient DISCONNECT \(socket.url?.absoluteString ?? "")")
+        print(error?.localizedDescription ?? "Error")
+        print("\n")
     }
     
     public func logCoinbaseSocketDidReceiveMessage(socket: CoinbaseSocketClient, text: String) {
-        print("--")
         guard let data = text.data(using: .utf8) else { return }
         guard let json = data.json else { return }
         let type = json["type"] as? String ?? ""
@@ -42,29 +43,30 @@ public class CoinbaseSocketClientDefaultLogger: CoinbaseSocketClientLogger {
         guard let jsonData = try? JSONSerialization.data(withJSONObject: json, options: [.prettyPrinted]) else { return }
         guard let jsonString = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
         print(jsonString)
+        print("\n")
     }
     
     public func logCoinbaseSocketResponseParsingFailure(socket: CoinbaseSocketClient, message: String) {
         print("----CoinbaseSocketClient Parsing Error----")
-        print("\n")
         print("Failure to parse json key: \(message)")
         print("\n")
-        print("----CoinbaseSocketClient Parsing Error----")
+    }
+    
+    public func logCoinbaseSocketWriteFailure(socket: CoinbaseSocketClient, error: Error?) {
+        print("-- CoinbaseSocketClient Write Failure \(socket.url?.absoluteString ?? "")")
+        print(error?.localizedDescription ?? "Error")
+        print("\n")
     }
     
     public func logCoinbaseSocketAuthenticationBuilderError(socket: CoinbaseSocketClient, message: String) {
         print("----CoinbaseSocketClient Authentication Error----")
-        print("\n")
         print(message)
         print("\n")
-        print("----CoinbaseSocketClient Authentication Error----")
     }
     
     public func logCoinbaseSocketGeneralError(socket: CoinbaseSocketClient, message: String) {
         print("----CoinbaseSocketClient General Error----")
-        print("\n")
         print(message)
         print("\n")
-        print("----CoinbaseSocketClient General Error----")
     }
 }

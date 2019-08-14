@@ -27,12 +27,12 @@ import Foundation
     public var webSocket: CoinbaseWebSocketClient? {
         didSet(oldSocket) {
             webSocket?.delegate = self
-            baseURLString = webSocket?.baseURLString
+            url = webSocket?.url
         }
     }
     public var logger: CoinbaseSocketClientLogger?
     
-    private(set) var baseURLString: String?
+    private(set) var url: URL?
     private(set) var currentSubscriptions: [Subscription]?
     
     public var isConnected: Bool {
@@ -86,7 +86,9 @@ import Foundation
     private func write(json: [String: Any]) {
         guard let jsonData = json.jsonData else { return }
         guard let jsonString = String(data: jsonData, encoding: .utf8) else { return }
-        webSocket?.write(string: jsonString)
+        webSocket?.write(string: jsonString, completionHandler: { (error) in
+            self.logger?.logCoinbaseSocketWriteFailure(socket: self, error: error)
+        })
     }
     
     private func processIncomingMessage(text: String) {
@@ -117,56 +119,82 @@ import Foundation
         switch messageType {
         case .error:
             let error = try ErrorMessage(json: json)
-            self.delegate?.coinbaseSocketClientOnErrorMessage?(socket: self, error: error)
+            DispatchQueue.main.async {
+                self.delegate?.coinbaseSocketClientOnErrorMessage?(socket: self, error: error)
+            }
             break
         case .subscriptions:
             let subscriptions = try SubscriptionsMessage(json: json)
             self.currentSubscriptions = subscriptions.channels
-            self.delegate?.coinbaseSocketClientOnSubscriptions?(socket: self, subscriptions: subscriptions)
+            DispatchQueue.main.async {
+                self.delegate?.coinbaseSocketClientOnSubscriptions?(socket: self, subscriptions: subscriptions)
+            }
             break
         case .heartbeat:
             let heartbeat = try HeartbeatMessage(json: json)
-            self.delegate?.coinbaseSocketClientOnHeartbeat?(socket: self, heartbeat: heartbeat)
+            DispatchQueue.main.async {
+                self.delegate?.coinbaseSocketClientOnHeartbeat?(socket: self, heartbeat: heartbeat)
+            }
             break
         case .ticker:
             let ticker = try TickerMessage(json: json)
-            self.delegate?.coinbaseSocketClientOnTicker?(socket: self, ticker: ticker)
+            DispatchQueue.main.async {
+                self.delegate?.coinbaseSocketClientOnTicker?(socket: self, ticker: ticker)
+            }
             break
         case .snapshot:
             let snapshot = try SnapshotMessage(json: json)
-            self.delegate?.coinbaseSocketClientOnSnapshot?(socket: self, snapshot: snapshot)
+            DispatchQueue.main.async {
+                self.delegate?.coinbaseSocketClientOnSnapshot?(socket: self, snapshot: snapshot)
+            }
             break
         case .update:
             let update = try UpdateMessage(json: json)
-            self.delegate?.coinbaseSocketClientOnUpdate?(socket: self, update: update)
+            DispatchQueue.main.async {
+                self.delegate?.coinbaseSocketClientOnUpdate?(socket: self, update: update)
+            }
             break
         case .received:
             let received = try ReceivedMessage(json: json)
-            self.delegate?.coinbaseSocketClientOnReceived?(socket: self, received: received)
+            DispatchQueue.main.async {
+                self.delegate?.coinbaseSocketClientOnReceived?(socket: self, received: received)
+            }
             break
         case .open:
             let open = try OpenMessage(json: json)
-            self.delegate?.coinbaseSocketClientOnOpen?(socket: self, open: open)
+            DispatchQueue.main.async {
+                self.delegate?.coinbaseSocketClientOnOpen?(socket: self, open: open)
+            }
             break
         case .done:
             let done = try DoneMessage(json: json)
-            self.delegate?.coinbaseSocketClientOnDone?(socket: self, done: done)
+            DispatchQueue.main.async {
+                self.delegate?.coinbaseSocketClientOnDone?(socket: self, done: done)
+            }
             break
         case .match:
             let match = try MatchMessage(json: json)
-            self.delegate?.coinbaseSocketClientOnMatch?(socket: self, match: match)
+            DispatchQueue.main.async {
+                self.delegate?.coinbaseSocketClientOnMatch?(socket: self, match: match)
+            }
             break
         case .change:
             let change = try ChangeMessage(json: json)
-            self.delegate?.coinbaseSocketClientOnChange?(socket: self, change: change)
+            DispatchQueue.main.async {
+                self.delegate?.coinbaseSocketClientOnChange?(socket: self, change: change)
+            }
             break
         case .marginProfileUpdate:
             let marginProfileUpdate = try MarginProfileUpdateMessage(json: json)
-            self.delegate?.coinbaseSocketClientOnMarginProfileUpdate?(socket: self, marginProfileUpdate: marginProfileUpdate)
+            DispatchQueue.main.async {
+                self.delegate?.coinbaseSocketClientOnMarginProfileUpdate?(socket: self, marginProfileUpdate: marginProfileUpdate)
+            }
             break
         case .activate:
             let activate = try ActivateMessage(json: json)
-            self.delegate?.coinbaseSocketClientOnActivate?(socket: self, activate: activate)
+            DispatchQueue.main.async {
+                self.delegate?.coinbaseSocketClientOnActivate?(socket: self, activate: activate)
+            }
             break
         case .unknown:
             fallthrough
