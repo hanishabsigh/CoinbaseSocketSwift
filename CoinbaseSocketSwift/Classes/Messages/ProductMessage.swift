@@ -10,12 +10,12 @@ import Foundation
 
 open class ProductMessage: CoinbaseMessage {
     
-    public let productId: ProductId
+    public let productId: String
 
     public required init(json: [String: Any]) throws {
         
-        guard let productId = ProductId(rawValue: json["product_id"] as? String ?? "") else {
-            throw CoinbaseSocketSwiftError.responseParsingFailure("product_id")
+        guard let productId = json["product_id"] as? String else {
+            throw CoinbaseSocketSwiftError.responseParsingFailure("user_id")
         }
         
         self.productId = productId

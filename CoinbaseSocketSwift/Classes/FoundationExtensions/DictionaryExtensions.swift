@@ -10,7 +10,7 @@ import Foundation
 
 internal extension Dictionary {
     
-    internal var jsonData: Data? {
+    var jsonData: Data? {
         do {
             return try JSONSerialization.data(withJSONObject: self, options: [])
         } catch _ { }

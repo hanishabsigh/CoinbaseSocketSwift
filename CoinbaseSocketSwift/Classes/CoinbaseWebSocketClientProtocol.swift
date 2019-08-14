@@ -16,7 +16,7 @@ public protocol CoinbaseWebSocketClientDelegate: class {
 
 public protocol CoinbaseWebSocketClient: class {
     
-    var baseURLString: String { get }
+    var url: URL { get }
     
     var delegate: CoinbaseWebSocketClientDelegate? { get set}
     
@@ -25,5 +25,5 @@ public protocol CoinbaseWebSocketClient: class {
     
     var isConnected: Bool { get }
     
-    func write(string: String)
+    func write(string: String, completionHandler: @escaping (Error?) -> Void)
 }
