@@ -6,51 +6,55 @@
 //  Copyright © 2018 CocoaPods. All rights reserved.
 //
 
-import Foundation
 import CoinbaseSocketSwift
+import Starscream
 
 public class ExampleWebSocketClient: CoinbaseWebSocketClient {
-    fileprivate var task: URLSessionWebSocketTask?
-
+    
+    fileprivate let socket: WebSocket
+    
     public let url: URL
     
     public required init(url: URL) {
         self.url = url
+        socket = WebSocket(url: url)
+        socket.delegate = self
     }
     
     public weak var delegate: CoinbaseWebSocketClientDelegate?
     
     public func connect() {
-        task = URLSession.shared.webSocketTask(with: url)
-        task?.resume()
-        readMessage()
-        delegate?.websocketDidConnect(socket: self)
+        socket.connect()
     }
     
     public func disconnect() {
-        task?.cancel()
-        task = nil
-        delegate?.websocketDidDisconnect(socket: self, error: nil)
+        socket.disconnect()
     }
     
     public var isConnected: Bool {
-        guard let _ = self.task else { return false }
-        return true
+        return self.socket.isConnected
     }
     
     public func write(string: String, completionHandler: @escaping (Error?) -> Void) {
-        task?.send(.string(string), completionHandler: completionHandler)
+        socket.write(string: string)
+    }
+}
+
+extension ExampleWebSocketClient: WebSocketDelegate {
+    
+    public func websocketDidConnect(socket: WebSocketClient) {
+        self.delegate?.websocketDidConnect(socket: self)
     }
     
-    private func readMessage() {
-        guard let task = self.task else { return }
-        task.receive { result in
-            switch result {
-            case .success(.string(let text)):
-                self.delegate?.websocketDidReceiveMessage(socket: self, text: text)
-                self.readMessage()
-            default: break
-            }
-        }
+    public func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+        self.delegate?.websocketDidDisconnect(socket: self, error: error)
+    }
+    
+    public func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+        self.delegate?.websocketDidReceiveMessage(socket: self, text: text)
+    }
+    
+    public func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
+        
     }
 }
