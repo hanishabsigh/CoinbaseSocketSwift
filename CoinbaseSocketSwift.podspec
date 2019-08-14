@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'CoinbaseSocketSwift'
-  s.version          = '1.0.2'
+  s.version          = '1.0.3'
   s.summary          = 'Unofficial Swift implementation of Coinbase WebSocket API.'
   s.homepage         = 'https://github.com/hanishabsigh/CoinbaseSocketSwift'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -13,5 +13,5 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target = '4.0'
   s.source_files = 'CoinbaseSocketSwift/Classes/**/*'
   s.dependency 'CryptoSwift'
-  s.swift_version = '4.2'
+  s.swift_version = '5.0'
 end

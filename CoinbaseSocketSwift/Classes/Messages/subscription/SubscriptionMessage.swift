@@ -11,16 +11,15 @@ import Foundation
 open class SubscriptionMessage {
     
     public let channels: [Channel]
-    public let productIds: [ProductId]
+    public let productIds: [String]
     
-    public init(channels:[Channel], productIds:[ProductId]) {
+    public init(channels:[Channel], productIds:[String]) {
         self.channels = channels
         self.productIds = productIds
     }
     
-    open func subscribeJSON(type: MessageType, channels:[Channel], productIds:[ProductId]) -> [String : Any] {
+    open func subscribeJSON(type: MessageType, channels:[Channel], productIds:[String]) -> [String : Any] {
         let channels = self.channels.map { $0.rawValue }
-        let productIds = self.productIds.map { $0.rawValue }
         
         var json = [String:Any]()
         json["type"] = type.rawValue

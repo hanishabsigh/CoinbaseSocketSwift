@@ -10,7 +10,7 @@ import Foundation
 
 internal extension String {
     
-    internal var dateFromISO8601: Date? {
+    var dateFromISO8601: Date? {
         return Formatter.iso8601.date(from: self)
     }
 }
