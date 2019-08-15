@@ -6,9 +6,6 @@
 //  Copyright © 2017 Hani Shabsigh. All rights reserved.
 //
 
-#if canImport(CryptoKit)
-import CryptoKit
-#endif
 import CryptoSwift
 
 internal class CoinbaseSocketAuthenticator {
@@ -40,18 +37,9 @@ internal class CoinbaseSocketAuthenticator {
             throw CoinbaseSocketSwiftError.authenticationBuilderError("Failed to convert preHash into data")
         }
         
-        if #available(iOS 13.0, OSX 10.15, watchOS 6.0, tvOS 13.0, *) {
-            var key = SymmetricKey(data: secret)
-            let authenticationCode = CryptoKit.HMAC<SHA256>.authenticationCode(for: preHashData, using: key)
-            return Data(authenticationCode).base64EncodedString()
-        } else {
-            guard let hmac = try CryptoSwift.HMAC(key: secret.bytes, variant: .sha256).authenticate(preHashData.bytes).toBase64() else {
-                throw CoinbaseSocketSwiftError.authenticationBuilderError("Failed to generate HMAC from preHash")
-            }
-            return hmac
+        guard let hmac = try CryptoSwift.HMAC(key: secret.bytes, variant: .sha256).authenticate(preHashData.bytes).toBase64() else {
+            throw CoinbaseSocketSwiftError.authenticationBuilderError("Failed to generate HMAC from preHash")
         }
-
-        throw CoinbaseSocketSwiftError.authenticationBuilderError("Failed to generate signature")
-
+        return hmac
     }
 }
